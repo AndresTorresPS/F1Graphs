@@ -72,7 +72,7 @@ class F1RaceSim:
         self.GREEN = (0, 200, 0)
         self.BLACK = (0, 0, 0)
         self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
-        pygame.display.set_caption("Simulación de Carrera 2D")
+        pygame.display.set_caption("F1Graphs")
         self.clock = pygame.time.Clock()
         self.font = pygame.font.SysFont("Arial", 24)
 
@@ -187,6 +187,7 @@ if __name__ == "__main__":
             "Hard": 7
         }
     }
+
     lap_times_pd = pd.DataFrame(data)
     laps_total = 3
     pit_stops_required = 1

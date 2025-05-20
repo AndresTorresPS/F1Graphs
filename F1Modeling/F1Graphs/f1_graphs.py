@@ -127,7 +127,7 @@ def print_graph_with_paths(graph, paths):
 
 if __name__ == "__main__":
     # Leer la matriz de adyacencia desde el archivo CSV (incluyendo encabezados)
-    adjacency_df = pd.read_csv('Mark01.csv', index_col=0)
+    adjacency_df = pd.read_csv('F1Data/mark_01.csv', index_col=0)
 
     # Crear el grafo dirigido y ponderado
     mark_01_graph = new_di_graph(adjacency_df)
