@@ -1,14 +1,16 @@
 # 🏎️ F1Graphs
 
-Simulador 2D de carreras de Fórmula 1 en Pygame a partir de modelos de grafos dirigidos con pesos. 
+Este proyecto está diseñado para aprender a modelar, analizar y simular estrategias de carrera de monoplazas desde la teoría de grafos, incluyendo paradas en pits, tipos de neumáticos, adelantamientos, entre otros.
 
-Este proyecto está diseñado para modelar, analizar y simular estrategias de carrera de monoplazas desde la teoría de grafos, incluyendo paradas en pits, tipos de neumáticos, adelantamientos, entre otros.
+* APIs/: Tutorial para acceder a fuentes de datos relacionados con la Fórmula1.
+* F1Modeling/: Simulador 2D de carreras de Fórmula 1 en Pygame a partir de modelos de grafos dirigidos con pesos. 
+* GraphTheory/: Resumen del libro de teoría de Diestel con ejemplos prácticos.
 
 ---
 
-## 🖐️ Arquitectura del Proyecto
+## 🖐️ Arquitectura de F1Modeling
 
-Este proyecto se basa en principios de **Clean Architecture** y **Domain-Driven Design (DDD)**. Cada componente está separado por su responsabilidad principal, facilitando mantenimiento, pruebas y escalabilidad.
+Este proyecto fue construido bajo los principios de **Clean Architecture** y **Domain-Driven Design (DDD)**. Cada componente está separado por su responsabilidad principal, facilitando mantenimiento, pruebas y escalabilidad.
 
 ```
 F1Modeling/
