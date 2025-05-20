@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 
-class NewGraph:
+class GraphCreation:
 
     def di_unweighted_graph(adjacency_df):
         """
@@ -30,7 +30,7 @@ class NewGraph:
                     G.add_edge(source, target, weight=weight)
         return G
     
-class GraphAlgorithms:
+class GraphAnalysis:
 
     def dfs(graph, start):
         """
@@ -72,7 +72,7 @@ class GraphAlgorithms:
         except nx.NetworkXNoPath:
             return [], float('inf')
         
-class VisualizeGraph:
+class GraphVisualization:
 
     def draw_graph(graph, paint_shortest_paths=False, shortest_paths=None):
     
