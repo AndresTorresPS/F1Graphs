@@ -43,11 +43,11 @@ F1Modeling/
 
 ## 🚀 Funcionalidades principales
 
-* Lectura de matrices de adyacencia desde archivos CSV
-* Construcción de grafos dirigidos con pesos usando NetworkX
-* Visualización de diferentes caminos posibles con matplotlib
-* Cálculo de caminos más cortos 
-* Simulación 2D de una carrera con Pygame
+* Lectura de matrices de adyacencia desde archivos `csv`
+* Construcción de grafos dirigidos con pesos usando `networkx`
+* Visualización de diferentes caminos posibles con `matplotlib`
+* Cálculo de caminos más cortos
+* Simulación 2D de una carrera con `pygame`
 * Validación entre los resultados por medio de grafos y usando simulador
 * Toolbox adaptable de Pygame para expandir la aplicación
 * Pruebas unitarias con `pytest`
@@ -56,12 +56,7 @@ F1Modeling/
 
 ## 🛠️ Requisitos
 
-* Python 3.10+
-* pygame
-* networkx
-* pandas
-* pytest
-* matplotlib
+`python 3.10+` `pygame` `networkx` `pandas` `pytest` `matplotlib`
 
 Instalar dependencias:
 
@@ -90,5 +85,10 @@ pytest tests/
 ## 📍 Autor
 
 **Jaime Andrés Torres Duque**
-Trabajo de grado para optar por el título de Ingeniero de Software
-Contacto: \[[institucional:jandrestorres@poligran.edu.co](personal: jaimetodu@hotmail.com)]
+
+Aspirante al título de Ingeniero de Software
+
+Contacto = { 
+institucional: jandrestorres@poligran.edu.co, 
+personal: jaimetodu@hotmail.com
+}
