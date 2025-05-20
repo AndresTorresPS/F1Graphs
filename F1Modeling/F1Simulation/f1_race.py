@@ -1,7 +1,7 @@
 import pygame
 import math
 import pandas as pd
-from F1Utils.race_utils import Constants, Car
+from F1Utils.race_utils import Constants, Car, Track
 
 # Incicialza los recursos de pygame una sola vez
 pygame.init()
@@ -16,10 +16,12 @@ class F1Race():
 
     def __init__(self, laps_total, pit_stops_required, lap_times_pd, pit_stop_time, cars_params):
         
-        # Configuraciones de la instancia
+        # Configuraciones de la simulación
         self.screen = pygame.display.set_mode((Constants.WIDTH, Constants.HEIGHT))
         self.clock = pygame.time.Clock()
-
+        self.track = Track("Circle", F1Race.H2)
+        
+        # Configuraciones de la carrera
         self.laps_total = laps_total                    # Total de vueltas
         self.pit_stops_required = pit_stops_required    # Total de paradas en boxes requeridas
         self.pit_stop_time = pit_stop_time              # Tiempo de parada en boxes (debe ser de Car)
@@ -41,15 +43,6 @@ class F1Race():
                 pit_stop_time=self.pit_stop_time
             )
             self.cars.append(car)
-
-    def draw_track(self):
-        pygame.draw.circle(self.screen, Constants.GRAY, Constants.CENTER, Constants.TRACK_RADIUS, 5)
-        pygame.draw.rect(
-            self.screen, Constants.GREEN,
-            (Constants.CENTER[0] + Constants.TRACK_RADIUS + 20, Constants.CENTER[1] - 40, 60, 80), 2
-        )
-        pit_text = F1Race.H2.render("PIT", True, Constants.GREEN)
-        self.screen.blit(pit_text, (Constants.CENTER[0] + Constants.TRACK_RADIUS + 30, Constants.CENTER[1] - 30))
 
     def draw_status(self):
         y = 10
@@ -113,7 +106,7 @@ class F1Race():
         while self.running:
             self.handle_events()
             self.screen.fill(Constants.BLACK)
-            self.draw_track()
+            self.track.draw_track(self.screen)
             for car in self.cars:
                 car.draw(self.screen, Constants.CENTER, Constants.TRACK_RADIUS, F1Race.BODY)
                 self.handle_pit_stop_logic(car)

@@ -26,8 +26,9 @@ class Constants:
 
     # Textos
     FONT = "Cambria"
+    PIT_STR = "PIT"
     END_STR = "End of F1 2D-Simulation"
-    SUB_END_STR = "Results where saved in F1Results/"
+    SUB_END_STR = "Results were saved in F1Results/"
 
 class Car:
     def __init__(self, tire_order, pit_lap, car_id, lap_times_pd, fps, car_radius, color_map, pit_stop_time):
@@ -79,4 +80,19 @@ class Car:
         # Draw car id above the car
         id_text = font.render(str(self.car_id), True, (255, 255, 0))
         screen.blit(id_text, (int(x) - 10, int(y) - 30))
+
+class Track:
+    def __init__(self, name, pit_font):
+        self.name = name
+        self.pit_font = pit_font
+
+    def draw_track(self, screen):
+        if self.name == "Circle":
+            pygame.draw.circle(screen, Constants.GRAY, Constants.CENTER, Constants.TRACK_RADIUS, 5)
+            pygame.draw.rect(
+                screen, Constants.GREEN,
+                (Constants.CENTER[0] + Constants.TRACK_RADIUS + 20, Constants.CENTER[1] - 40, 60, 80), 2
+            )
+            pit_text = self.pit_font.render(Constants.PIT_STR, True, Constants.GREEN)
+            screen.blit(pit_text, (Constants.CENTER[0] + Constants.TRACK_RADIUS + 30, Constants.CENTER[1] - 30))
 
