@@ -2,9 +2,9 @@
 
 Este proyecto está diseñado para aprender a modelar, analizar y simular estrategias de carrera de monoplazas desde la teoría de grafos, incluyendo paradas en pits, tipos de neumáticos, adelantamientos, entre otros.
 
-* APIs/: Tutorial para acceder a fuentes de datos relacionados con la Fórmula1.
-* F1Modeling/: Simulador 2D de carreras de Fórmula 1 en Pygame a partir de modelos de grafos dirigidos con pesos. 
-* GraphTheory/: Resumen del libro de teoría de Diestel con ejemplos prácticos.
+* APIs/: Tutorial para acceder a fuentes de datos públicas sobre la Fórmula 1.
+* F1Modeling/: Simulador 2D de carreras de Fórmula 1 en `pygame` a partir de modelos de grafos dirigidos ponderados. 
+* GraphTheory/: Resumen del libro de teoría de grafos de Diestel con ejemplos prácticos.
 
 ---
 
@@ -86,7 +86,7 @@ pytest tests/
 
 **Jaime Andrés Torres Duque**
 
-Aspirante al título de Ingeniero de Software
+Aspirante al título de Ingeniero de Software.
 
 Contacto = { 
 institucional: jandrestorres@poligran.edu.co, 
