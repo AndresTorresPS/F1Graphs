@@ -1,6 +1,4 @@
 import pygame
-import math
-import pandas as pd
 from F1Utils.race_utils import Constants, Car, Track
 
 class F1Race():

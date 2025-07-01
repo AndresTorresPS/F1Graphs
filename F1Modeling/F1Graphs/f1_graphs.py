@@ -15,7 +15,7 @@ class F1Graphs:
     target_node = 'End'
     shortest_paths, shortest_distance = GraphAnalysis.all_shortest_paths(mark_01_graph, start_node, target_node)
     print(f"Graph created from {csv_file}")
-    print(f"Shortest paths from {start_node} to {target_node}: {shortest_paths}\nShortest distance: {shortest_distance}")
+    print(f"Shortest paths from {start_node} to {target_node} using Dijkstra: {shortest_paths}\nShortest distance: {shortest_distance}")
 
     # Imprime el grafo con los caminos resaltados
     GraphVisualization.draw_graph(mark_01_graph, paint_shortest_paths=True, shortest_paths=shortest_paths)

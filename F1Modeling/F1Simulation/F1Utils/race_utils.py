@@ -55,7 +55,7 @@ class Car:
         self.pit_stop_time = 2
         self.tire_idx = 0
         self.tire_type = self.tire_order[self.tire_idx]
-        self.angle = 0.1
+        self.angle = 0
         self.lap = 1
         self.pit_done = 0
         self.speed = self.get_speed_for_tire(self.tire_type)
