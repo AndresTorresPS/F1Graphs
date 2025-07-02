@@ -1,8 +1,10 @@
 import pandas as pd
-from f1_graphs_utils.graphs_utils import GraphCreation, GraphAnalysis, GraphVisualization
+from f1_graphs.f1_graphs_utils.graphs_utils import GraphCreation, GraphAnalysis, GraphVisualization
 import os
 
 class F1Graph:
+    input_dir = "f1_data/"
+    output_dir = 'f1_output/graphs_models'
 
     @staticmethod
     def create_graph(filename):
@@ -15,7 +17,7 @@ class F1Graph:
         os.makedirs(output_dir, exist_ok=True)
 
         # Cargar el archivo CSV
-        adjacency_df = pd.read_csv(filename, index_col=0)
+        adjacency_df = pd.read_csv(F1Graph.input_dir+filename, index_col=0)
         graph = GraphCreation.di_weighted_graph(adjacency_df)
 
         # Ruta para guardar la imagen
@@ -38,18 +40,17 @@ class F1Graph:
         y exporta los resultados a archivos CSV.
         """
         base_name = os.path.splitext(os.path.basename(filename))[0]
-        output_dir = 'f1_output/graphs_models'
-        os.makedirs(output_dir, exist_ok=True)
+        os.makedirs(F1Graph.output_dir, exist_ok=True)
 
         # Cargar el archivo CSV
-        adjacency_df = pd.read_csv(filename, index_col=0)
+        adjacency_df = pd.read_csv(F1Graph.input_dir+filename, index_col=0)
         graph = GraphCreation.di_weighted_graph(adjacency_df)
 
         # Calcular los caminos más cortos
         shortest_paths, shortest_distance = GraphAnalysis.all_shortest_paths(graph, start_node, target_node)
 
         # Guardar la imagen con caminos resaltados
-        optimized_image_path = os.path.join(output_dir, f'{base_name}_optimized.png')
+        optimized_image_path = os.path.join(F1Graph.output_dir, f'{base_name}_optimized.png')
         GraphVisualization.draw_graph(
             graph,
             paint_shortest_paths=True,
@@ -59,19 +60,15 @@ class F1Graph:
         )
 
         # Guardar los caminos más cortos en CSV
-        paths_csv_path = os.path.join(output_dir, f'{base_name}_shortest_paths.csv')
+        paths_csv_path = os.path.join(F1Graph.output_dir, f'{base_name}_shortest_paths.csv')
         paths_df = pd.DataFrame({'Path': [' -> '.join(path) for path in shortest_paths]})
         paths_df.to_csv(paths_csv_path, index=False)
 
         # Guardar la distancia mínima en CSV
-        dist_csv_path = os.path.join(output_dir, f'{base_name}_shortest_distance.csv')
+        dist_csv_path = os.path.join(F1Graph.output_dir, f'{base_name}_shortest_distance.csv')
         dist_df = pd.DataFrame({'Distance': [shortest_distance]})
         dist_df.to_csv(dist_csv_path, index=False)
 
         print(f"✅ Caminos más cortos guardados en {paths_csv_path}")
         print(f"✅ Distancia mínima guardada en {dist_csv_path}")
         print(f"✅ Imagen del grafo optimizado guardada en {optimized_image_path}")
-
-F1Graph.create_graph('f1_data/f1_model_01.csv')
-
-F1Graph.optimize('f1_data/f1_model_01.csv')
