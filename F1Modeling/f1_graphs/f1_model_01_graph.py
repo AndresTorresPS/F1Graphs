@@ -1,10 +1,10 @@
 import pandas as pd
-from F1Utils.graphs_utils import GraphCreation, GraphAnalysis, GraphVisualization
+from f1_graphs_utils.graphs_utils import GraphCreation, GraphAnalysis, GraphVisualization
 
 class F1Graphs:
 
     # Leer la matriz de adyacencia desde el archivo CSV (incluyendo encabezados)
-    csv_file = 'F1Data/mark_01.csv'
+    csv_file = 'f1_data/f1_model_01.csv'
     adjacency_df = pd.read_csv(csv_file, index_col=0)
 
     # Crear el grafo dirigido y ponderado
@@ -18,7 +18,12 @@ class F1Graphs:
     print(f"Shortest paths from {start_node} to {target_node} using Dijkstra: {shortest_paths}\nShortest distance: {shortest_distance}")
 
     # Imprime el grafo con los caminos resaltados
-    GraphVisualization.draw_graph(mark_01_graph, paint_shortest_paths=True, shortest_paths=shortest_paths)
+    GraphVisualization.draw_graph(mark_01_graph, 
+                                  paint_shortest_paths=True, 
+                                  shortest_paths=shortest_paths,
+                                  save_path='f1_output/f1_model_01.png',
+                                  show_plot=True)
+    
 
 
 

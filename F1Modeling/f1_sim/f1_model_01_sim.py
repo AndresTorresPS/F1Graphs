@@ -1,7 +1,10 @@
 import pygame
-from F1Utils.race_utils import Constants, Car, Track
+from f1_sim_utils.sim_utils import Constants, Car, Track
 
 class F1Race():
+    """
+    Clase principal para la simulación de una carrera de F1 en 2D.
+    """
 
     def __init__(self, laps_total, pit_stops_required, cars_params):
         

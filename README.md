@@ -13,27 +13,24 @@ Este proyecto está diseñado para aprender a modelar, analizar y simular estrat
 Este proyecto fue construido bajo los principios de **Clean Architecture** y **Domain-Driven Design (DDD)**. Cada componente está separado por su responsabilidad principal, facilitando mantenimiento, pruebas y escalabilidad.
 
 ```
-F1Modeling/
+f1_modeling/
 │
-├── F1Data/                       # 📊 CSVs con matrices de adyacencia
+├── f1_data/                       # 📊 CSVs con matrices de adyacencia
 │
-├── F1Graphs/                     # 🔍 Módulo de modelado con grafos
-│   ├── f1_graphs.py                # Modelamiento de carreras de F1 con grafos
-│   ├── F1Utils/                
-│       └── graphs_utils.py           # Contiene herramientas de modelado con grafos
+├── f1_graphs/                     # 🔍 Módulo de modelado con grafos
+│   ├── f1_model_01_graph.py          # Plantilla para crear los modelos de grafos
+│   ├── f1_graphs_utils/                
+│       └── graphs_utils.py             # Contiene herramientas de modelado con grafos
 │
-├── F1Simulation/                 # 🎮 Módulo de simulación 2D con Pygame
-│   ├── f1_race_logic.py            # Contiene la lógica de los modelos de carrera
-│   ├── f1_race.py                  # Controla el flujo de carrera
-│   ├── F1Utils/                    
-│       └── race_utils.py             # Contiene componentes de simulación
+├── f1_sim/                        # 🎮 Módulo de simulación 2D con Pygame
+│   ├── f1_model_01_sim.py            # Plantilla para crear los modelos de simulación
+│   ├── f1_sim/                    
+│       └── sim_utils.py                # Contiene componentes de simulación
 │
-├── F1Test/                       # ✅ Módulo de pruebas unitarias con pytest
+├── f1_test/                       # ✅ Módulo de pruebas unitarias con pytest
 │   ├── test_graphs_utils.py
-|   ├── test_race_utils.py
+|   ├── test_sim_utils.py
 │
-├── f1_config.py                  # ⚙️ Configuraciones generales de la aplicación
-├── f1_doc.ipynb                  # 📝 Documentación detallada
 ├── f1_main.py                    # 🔁 Orquesta lectura, lógica, simulación y testing
 ├── README.md                     # 📝 Este archivo
 └── requirements.txt              # 📦 Dependencias

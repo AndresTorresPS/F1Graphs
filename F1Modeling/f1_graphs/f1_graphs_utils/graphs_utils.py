@@ -74,10 +74,11 @@ class GraphAnalysis:
         
 class GraphVisualization:
 
-    def draw_graph(graph, paint_shortest_paths=False, shortest_paths=None):
-    
+    @staticmethod
+    def draw_graph(graph, paint_shortest_paths=False, shortest_paths=None, save_path=None, show_plot=True):
         plt.figure(figsize=(10, 7))
         pos = nx.spring_layout(graph, k=10, seed=100)
+        
         nx.draw(
             graph, pos,
             with_labels=True,
@@ -88,9 +89,9 @@ class GraphVisualization:
             font_size=12,
             font_weight='bold'
         )
+
         # Resaltar caminos más cortos si se proporciona
         if paint_shortest_paths and shortest_paths:
-            # Colores para los caminos
             colors = list(mcolors.TABLEAU_COLORS.values()) + list(mcolors.CSS4_COLORS.values())
             for i, path in enumerate(shortest_paths):
                 color = colors[i % len(colors)]
@@ -102,12 +103,23 @@ class GraphVisualization:
                     width=3,
                     arrows=True
                 )
-        # Dibujar etiquetas de los pesos DESPUÉS de los caminos resaltados
+
+        # Dibujar etiquetas de los pesos
         edge_labels = nx.get_edge_attributes(graph, 'weight')
         if edge_labels:
             nx.draw_networkx_edge_labels(
                 graph, pos, edge_labels=edge_labels,
-                font_color='black', font_size=10, bbox=dict(facecolor='white', edgecolor='none', alpha=0.7)
+                font_color='black', font_size=10,
+                bbox=dict(facecolor='white', edgecolor='none', alpha=0.7)
             )
+
         plt.axis('off')
-        plt.show()
+
+        if save_path:
+            plt.savefig(save_path, format='png', dpi=300, bbox_inches='tight')
+            print(f"✅ Grafo guardado en: {save_path}")
+
+        if show_plot:
+            plt.show()
+        else:
+            plt.close()
