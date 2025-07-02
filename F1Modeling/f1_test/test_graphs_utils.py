@@ -1,5 +1,5 @@
 import networkx as nx
-from f1_graphs.f1_model_01_graph import new_di_graph
+from f1_graphs.f1_graph_modeling import new_di_graph
 
 def test_new_di_graph_empty():
     matriz = []

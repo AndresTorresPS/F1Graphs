@@ -1,0 +1,3 @@
+Path
+Start -> L1.SC.S0 -> L2.SC.S0 -> L3.MC.S1 -> End
+Start -> L1.MC.S0 -> L2.SC.S1 -> L3.SC.S1 -> End
