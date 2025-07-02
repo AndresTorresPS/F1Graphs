@@ -117,7 +117,6 @@ class GraphVisualization:
 
         if save_path:
             plt.savefig(save_path, format='png', dpi=300, bbox_inches='tight')
-            print(f"✅ Grafo guardado en: {save_path}")
 
         if show_plot:
             plt.show()

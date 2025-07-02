@@ -29,7 +29,6 @@ f1_modeling/
 │
 ├── f1_test/                       # ✅ Módulo de pruebas unitarias con pytest
 │   ├── test_graphs_utils.py
-|   ├── test_sim_utils.py
 │
 ├── f1_main.py                    # 🔁 Orquesta lectura, lógica, simulación y testing
 ├── README.md                     # 📝 Este archivo

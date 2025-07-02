@@ -35,14 +35,14 @@ class Constants:
     BODY = pygame.font.SysFont(FONT, 14)
     PIT_STR = "PIT"
     END_STR = "End of F1 2D-Simulation"
-    SUB_END_STR = "Results were saved in F1Results/"
+    SUB_END_STR = "Results were saved in f1_output/sim_models/"
 
 class Car:
     def __init__(self, tire_order, pit_lap, car_id):
         self.tire_order = tire_order
         self.pit_lap = pit_lap
         self.car_id = car_id
-        
+
         lap_times = {
             "lap_time": {
                 "Soft": 6,
@@ -52,7 +52,7 @@ class Car:
         }
 
         self.lap_times_pd = pd.DataFrame(lap_times)
-        self.pit_stop_time = 2
+        self.pit_stop_time = 1.9
         self.tire_idx = 0
         self.tire_type = self.tire_order[self.tire_idx]
         self.angle = 0
@@ -61,6 +61,7 @@ class Car:
         self.speed = self.get_speed_for_tire(self.tire_type)
         self.in_pit_stop = False
         self.pit_stop_timer = 0
+        self.lap_complete_time = None  # 🟢 Aquí guardamos el tiempo en que termina
 
     def get_speed_for_tire(self, tire):
         lap_time = self.lap_times_pd.loc[tire, "lap_time"]
@@ -89,7 +90,6 @@ class Car:
             int(y + Constants.CAR_RADIUS * math.sin(angle - 2.5))
         )
         pygame.draw.polygon(screen, Constants.COMPOUND_COLORS[self.tire_type], [tip, back_left, back_right])
-        # Draw car id above the car
         id_text = Constants.BODY.render(str(self.car_id), True, (255, 255, 0))
         screen.blit(id_text, (int(x) - 10, int(y) - 30))
 
@@ -112,12 +112,19 @@ class Car:
     def handle_pit_stop_logic(self, laps_total, pit_stops_required):
         if self.lap > laps_total:
             return  # Finished
+
         if self.in_pit_stop:
             self.pit_stop_timer -= 1
             if self.pit_stop_timer <= 0:
                 self.finish_pit_stop()
         else:
             self.update_lap(laps_total)
+
+            # 🟢 Registrar tiempo de finalización al completar la carrera
+            if self.lap > laps_total and self.lap_complete_time is None:
+                import time
+                self.lap_complete_time = time.time()
+
             # Pit stop logic
             if (self.pit_done < pit_stops_required and
                 self.lap == self.pit_lap and

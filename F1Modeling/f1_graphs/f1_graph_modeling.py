@@ -30,7 +30,7 @@ class F1Graph:
             save_path=image_path,
             show_plot=False
         )
-        print(f"✅ Grafo base guardado en {image_path}")
+        print(f"✅ PNG del grafo guardado en {image_path}")
 
     @staticmethod
     def optimize(filename, start_node='Start', target_node='End'):
@@ -60,15 +60,15 @@ class F1Graph:
         )
 
         # Guardar los caminos más cortos en CSV
-        paths_csv_path = os.path.join(F1Graph.output_dir, f'{base_name}_shortest_paths.csv')
-        paths_df = pd.DataFrame({'Path': [' -> '.join(path) for path in shortest_paths]})
+        paths_csv_path = os.path.join(F1Graph.output_dir, f'{base_name}_optimal_paths.csv')
+        paths_df = pd.DataFrame({'Optimal Paths': [' >>> '.join(path) for path in shortest_paths]})
         paths_df.to_csv(paths_csv_path, index=False)
 
         # Guardar la distancia mínima en CSV
-        dist_csv_path = os.path.join(F1Graph.output_dir, f'{base_name}_shortest_distance.csv')
-        dist_df = pd.DataFrame({'Distance': [shortest_distance]})
+        dist_csv_path = os.path.join(F1Graph.output_dir, f'{base_name}_optimal_solution.csv')
+        dist_df = pd.DataFrame({'Optimal solution': [shortest_distance]})
         dist_df.to_csv(dist_csv_path, index=False)
 
-        print(f"✅ Caminos más cortos guardados en {paths_csv_path}")
-        print(f"✅ Distancia mínima guardada en {dist_csv_path}")
-        print(f"✅ Imagen del grafo optimizado guardada en {optimized_image_path}")
+        print(f"✅ Caminos óptimos guardados en {paths_csv_path}")
+        print(f"✅ Solución óptima guardada en {dist_csv_path}")
+        print(f"✅ PNG del grafo optimizado guardada en {optimized_image_path}")

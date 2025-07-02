@@ -1,5 +1,8 @@
+import os
+import time
+import pandas as pd
 import pygame
-from f1_sim_utils.sim_utils import Constants, Car, Track
+from f1_sim.f1_sim_utils.sim_utils import Constants, Car, Track
 
 class F1Race():
     """
@@ -56,37 +59,89 @@ class F1Race():
         pygame.quit()
 
     def run(self):
+        self.start_time = time.time()
+        
+        # Asignar el start_time a cada carro y crear variables auxiliares
+        for car in self.cars:
+            car.start_time = self.start_time
+            car.lap_times = {}
+            car.last_lap_logged = 0
+
         while self.running:
             self.handle_events()
             self.screen.fill(Constants.BLACK)
             self.track.draw_track(self.screen)
+
             for car in self.cars:
                 car.draw_car(self.screen)
                 car.handle_pit_stop_logic(self.laps_total, self.pit_stops_required)
+
+                # ✅ Verifica si el carro ha cambiado de vuelta
+                if car.lap > car.last_lap_logged:
+                    lap_time = round(time.time() - self.start_time, 2)
+                    lap_number = car.lap - 1
+                    car.lap_times[lap_number] = lap_time
+                    car.last_lap_logged = car.lap
+                    print(f"🏁 Car {car.car_id} completó la vuelta {lap_number} en t={lap_time}s desde inicio")
+
             self.draw_status()
             pygame.display.flip()
             self.clock.tick(Constants.FPS)
-            # End simulation when all cars finished
+
             if all(car.lap > self.laps_total for car in self.cars):
                 self.running = False
+
+        total_time = round(time.time() - self.start_time, 2)
+
+        # Determinar el carro que terminó primero (menor tiempo de última vuelta)
+        finished_cars = [(car.car_id, car.lap_times.get(self.laps_total)) for car in self.cars]
+        finished_cars = [(cid, t) for cid, t in finished_cars if t is not None]
+        winner_id = min(finished_cars, key=lambda x: x[1])[0] if finished_cars else "Desconocido"
+
+        # Crear carpeta si no existe
+        output_dir = "f1_output/sim_models"
+        os.makedirs(output_dir, exist_ok=True)
+
+        # Guardar resumen de resultados
+        summary_path = os.path.join(output_dir, "f1_model_01_sim_optimal_solution.csv")
+        summary_df = pd.DataFrame([{
+            "Optimal Solution (Car ID)": winner_id,
+            "Total Simulation Time (s)": total_time
+        }])
+        summary_df.to_csv(summary_path, index=False)
+        print(f"✅ Resultados guardados en {summary_path}")
+
+        # Guardar tiempos por vuelta
+        lap_data = []
+        for car in self.cars:
+            for lap_number, time_s in car.lap_times.items():
+                lap_data.append({
+                    "car_id": car.car_id,
+                    "lap": lap_number,
+                    "time_s": time_s
+                })
+
+        lap_df = pd.DataFrame(lap_data)
+        lap_times_path = os.path.join(output_dir, "f1_model_01_sim_lap_times.csv")
+        lap_df.to_csv(lap_times_path, index=False)
+        print(f"✅ Tiempos por vuelta guardados en {lap_times_path}")
+
         self.show_final_screen()
 
-if __name__ == "__main__":
-    
-    laps_total = 3
-    pit_stops_required = 1
+laps_total = 3
+pit_stops_required = 1
 
-    # User provides car parameters
-    cars_params = [
-        {"tire_order": ["Soft", "Medium"], "pit_lap": 1, "id": 1}, 
-        {"tire_order": ["Medium", "Soft"], "pit_lap": 1, "id": 2}, # Gana
-        {"tire_order": ["Soft", "Medium"], "pit_lap": 2, "id": 3}, # Gana
-        {"tire_order": ["Medium", "Soft"], "pit_lap": 2, "id": 4}
-    ]
+# User provides car parameters
+cars_params = [
+    {"tire_order": ["Soft", "Medium"], "pit_lap": 1, "id": 1}, 
+    {"tire_order": ["Medium", "Soft"], "pit_lap": 1, "id": 2}, # Gana
+    {"tire_order": ["Soft", "Medium"], "pit_lap": 2, "id": 3}, # Gana
+    {"tire_order": ["Medium", "Soft"], "pit_lap": 2, "id": 4}
+]
 
-    sim = F1Race(
-        laps_total=laps_total,
-        pit_stops_required=pit_stops_required,
-        cars_params=cars_params
-    )
-    sim.run()
+sim = F1Race(
+    laps_total=laps_total,
+    pit_stops_required=pit_stops_required,
+    cars_params=cars_params
+)
+sim.run()
